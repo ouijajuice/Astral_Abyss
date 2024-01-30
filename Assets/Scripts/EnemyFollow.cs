@@ -13,6 +13,8 @@ public class EnemyFollow : MonoBehaviour
     private bool dying;
     public float waitTime;
     private bool isActive = false;
+    private float followTimer = 0f;
+    public float followDelay = 1f;
 
 
     // Start is called before the first frame update
@@ -24,15 +26,20 @@ public class EnemyFollow : MonoBehaviour
         target = targetObject.transform;
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if (isActive == false)
+
+        if (dying == false)
         {
-            StartCoroutine(Follow());
-            isActive = true;
+            followTimer += Time.deltaTime;
+            if (followTimer >= followDelay)
+            {
+                Follow();
+                Flip();
+            }
+            
         }
-        
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -41,6 +48,7 @@ public class EnemyFollow : MonoBehaviour
         {
             dying = true;
             animator.SetBool("Dying", true);
+            gameObject.GetComponent<EdgeCollider2D>().enabled = false;
             Destroy(gameObject, 1f);
         }
 
@@ -50,7 +58,7 @@ public class EnemyFollow : MonoBehaviour
     {
         if (target.position.x > transform.position.x)
         {
-            transform.localScale = new Vector3(-1f,transform.localScale.y,transform.localScale.z);
+            transform.localScale = new Vector3(-1f, transform.localScale.y, transform.localScale.z);
         }
         else
         {
@@ -58,11 +66,9 @@ public class EnemyFollow : MonoBehaviour
         }
     }
 
-    IEnumerator Follow()
+    void Follow()
     {
-        yield return new WaitForSeconds(waitTime);
         rb.position = Vector2.MoveTowards(rb.position, target.position, speed * Time.deltaTime);
-
-        Flip();
     }
+
 }
