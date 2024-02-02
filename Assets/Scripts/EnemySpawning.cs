@@ -7,20 +7,20 @@ public class EnemySpawning : MonoBehaviour
     [SerializeField]
     private GameObject enemyPrefab;
 
-    //[SerializeField]
-    //private GameObject rangedEnemyPrefab;
+    [SerializeField]
+    private GameObject rangedEnemyPrefab;
 
     [SerializeField]
     private float enemyInterval;
 
-    //[SerializeField]
-    //private float rangedEnemyInterval = 10f;
+    [SerializeField]
+    private float rangedEnemyInterval;
 
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(spawnEnemy(enemyInterval, enemyPrefab));
-        //StartCoroutine(spawnEnemy(rangedEnemyInterval, rangedEnemyPrefab));
+        StartCoroutine(spawnEnemy(rangedEnemyInterval, rangedEnemyPrefab));
     }
 
     private IEnumerator spawnEnemy(float interval, GameObject enemy)

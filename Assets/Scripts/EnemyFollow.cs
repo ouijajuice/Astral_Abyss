@@ -15,7 +15,10 @@ public class EnemyFollow : MonoBehaviour
     private bool isActive = false;
     private float followTimer = 0f;
     public float followDelay = 1f;
-
+    public bool rangedFollow;
+    public float stoppingDistance;
+    public GameObject spawnParticles;
+    public float spawnParticleYDist;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +27,8 @@ public class EnemyFollow : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         GameObject targetObject = GameObject.FindWithTag("Player");
         target = targetObject.transform;
+        GameObject spawnParts = Instantiate(spawnParticles, new Vector3(transform.position.x,transform.position.y-spawnParticleYDist,transform.position.z), Quaternion.identity);
+        Destroy(spawnParts, 1f);
     }
 
     void FixedUpdate()
@@ -31,6 +36,7 @@ public class EnemyFollow : MonoBehaviour
 
         if (dying == false)
         {
+            
             followTimer += Time.deltaTime;
             if (followTimer >= followDelay)
             {
@@ -68,7 +74,18 @@ public class EnemyFollow : MonoBehaviour
 
     void Follow()
     {
-        rb.position = Vector2.MoveTowards(rb.position, target.position, speed * Time.deltaTime);
+        float distanceToPlayer = Vector2.Distance(transform.position, target.position);
+        Debug.Log("Distance to Player: " + distanceToPlayer);
+        if (rangedFollow == false)
+        {
+            Debug.Log("Ranged Follow False | Following");
+            rb.position = Vector2.MoveTowards(rb.position, target.position, speed * Time.deltaTime);
+        }
+        else if (rangedFollow == true && distanceToPlayer >= stoppingDistance)
+        {
+            Debug.Log("Ranged Follow True | Following");
+            rb.position = Vector2.MoveTowards(rb.position, target.position, speed * Time.deltaTime);
+        }
     }
 
 }

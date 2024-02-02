@@ -123,6 +123,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   waitTime: 1
+  followDelay: 1
+  rangedFollow: 0
+  stoppingDistance: 0
+  spawnParticles: {fileID: 8369446775084362149, guid: fba02415399a1564f81f904b72dc73d5, type: 3}
+  spawnParticleYDist: 0.91
 --- !u!95 &6997921677420151849
 Animator:
   serializedVersion: 5
