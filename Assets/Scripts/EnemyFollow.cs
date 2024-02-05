@@ -29,6 +29,7 @@ public class EnemyFollow : MonoBehaviour
         target = targetObject.transform;
         GameObject spawnParts = Instantiate(spawnParticles, new Vector3(transform.position.x,transform.position.y-spawnParticleYDist,transform.position.z), Quaternion.identity);
         Destroy(spawnParts, 1f);
+        gameObject.GetComponent<EdgeCollider2D>().enabled = false;
     }
 
     void FixedUpdate()
@@ -42,6 +43,7 @@ public class EnemyFollow : MonoBehaviour
             {
                 Follow();
                 Flip();
+                gameObject.GetComponent<EdgeCollider2D>().enabled = true;
             }
             
         }
@@ -75,15 +77,15 @@ public class EnemyFollow : MonoBehaviour
     void Follow()
     {
         float distanceToPlayer = Vector2.Distance(transform.position, target.position);
-        Debug.Log("Distance to Player: " + distanceToPlayer);
+        //Debug.Log("Distance to Player: " + distanceToPlayer);
         if (rangedFollow == false)
         {
-            Debug.Log("Ranged Follow False | Following");
+            //Debug.Log("Ranged Follow False | Following");
             rb.position = Vector2.MoveTowards(rb.position, target.position, speed * Time.deltaTime);
         }
         else if (rangedFollow == true && distanceToPlayer >= stoppingDistance)
         {
-            Debug.Log("Ranged Follow True | Following");
+            //Debug.Log("Ranged Follow True | Following");
             rb.position = Vector2.MoveTowards(rb.position, target.position, speed * Time.deltaTime);
         }
     }

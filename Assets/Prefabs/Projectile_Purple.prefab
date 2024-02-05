@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 2628886418890361018}
   - component: {fileID: 627978814081930913}
   - component: {fileID: 190160641155253294}
-  - component: {fileID: 5399103730222631390}
+  - component: {fileID: -3959982987824084715}
   m_Layer: 0
   m_Name: Projectile_Purple
-  m_TagString: Projectile
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -157,7 +157,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &5399103730222631390
+--- !u!114 &-3959982987824084715
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -166,11 +166,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2141800570554850222}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 281bc0e2ff7d4cf45bc846c77be65abc, type: 3}
+  m_Script: {fileID: 11500000, guid: 40031a30a5b94fc48ad25e9490ac2d8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerExplosion: {fileID: 4972196842817061509, guid: a10149216ad41024eb57d15c60d1555e, type: 3}
+  enemyExplosion: {fileID: 4972196842817061509, guid: a10149216ad41024eb57d15c60d1555e, type: 3}
   hitTag: Player
+  speed: 5
+  projectileForce: 3
 --- !u!1 &8872838986462379852
 GameObject:
   m_ObjectHideFlags: 0
