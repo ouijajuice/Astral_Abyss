@@ -29,6 +29,8 @@ public class EnemyProjectile : MonoBehaviour
             GameObject explosion = Instantiate(enemyExplosion, transform.position, Quaternion.identity);
             Destroy(explosion, 1f);
             Destroy(gameObject);
+            PlayerMovement playerScript = other.gameObject.GetComponent<PlayerMovement>();
+            playerScript.health -= 1;
         }
         Destroy(gameObject, 5f);
     }

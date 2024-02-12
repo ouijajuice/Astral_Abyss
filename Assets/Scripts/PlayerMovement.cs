@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -12,10 +13,14 @@ public class PlayerMovement : MonoBehaviour
     private bool isFacingRight;
     private Animator animator;
     private bool firing;
+    public int maxHealth;
+    public int health;
+    public string deathScreen;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
+        health = maxHealth;
     }
     void Update()
     {
@@ -35,6 +40,8 @@ public class PlayerMovement : MonoBehaviour
         Invoke("FiringFalse", 1f);
 
         Flip();
+        HealthCheck();
+
     }
     void FixedUpdate()
     {
@@ -72,6 +79,13 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void HealthCheck()
+    {
+        if (health <= 0)
+        {
+            SceneManager.LoadScene(deathScreen);
+        }
+    }
     void FiringFalse()
     {
         firing = false;
