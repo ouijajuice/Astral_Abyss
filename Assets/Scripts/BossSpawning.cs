@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class BossSpawning : MonoBehaviour
@@ -10,10 +11,20 @@ public class BossSpawning : MonoBehaviour
     [SerializeField]
     private float tentacleInterval;
 
+    private GameObject killCounterScript;
+
+    private bool done = false;
     // Start is called before the first frame update
-    void Start()
+    void Update()
     {
-        StartCoroutine(spawnEnemy(tentacleInterval, tentaclePrefab));
+        GameObject killCounter = GameObject.FindGameObjectWithTag("KillCounterObject");
+        KillCounter killCounterScript = killCounter.GetComponent<KillCounter>();
+        if (killCounterScript.killCount <= 0 && done == false)
+        {
+            StartCoroutine(spawnEnemy(tentacleInterval, tentaclePrefab));
+            done = true;
+        }
+        
     }
 
     private IEnumerator spawnEnemy(float interval, GameObject enemy)

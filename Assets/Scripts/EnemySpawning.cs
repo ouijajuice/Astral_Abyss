@@ -16,11 +16,22 @@ public class EnemySpawning : MonoBehaviour
     [SerializeField]
     private float rangedEnemyInterval;
 
-    // Start is called before the first frame update
+    private GameObject killCounterObject;
+
     void Start()
     {
         StartCoroutine(spawnEnemy(enemyInterval, enemyPrefab));
         StartCoroutine(spawnEnemy(rangedEnemyInterval, rangedEnemyPrefab));
+    }
+
+    private void Update()
+    {
+        GameObject killCounterObject = GameObject.FindGameObjectWithTag("KillCounterObject");
+        KillCounter killCounterScript = killCounterObject.GetComponent<KillCounter>();
+        if (killCounterScript.killCount <= 0)
+        {
+            StopAllCoroutines();
+        }
     }
 
     private IEnumerator spawnEnemy(float interval, GameObject enemy)

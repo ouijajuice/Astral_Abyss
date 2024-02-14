@@ -12,5 +12,9 @@ public class KillCounter : MonoBehaviour
     void Update()
     {
         killText.text = killCount.ToString();
+        if (killCount < 0)
+        {
+            killCount = 0;
+        }
     }
 }

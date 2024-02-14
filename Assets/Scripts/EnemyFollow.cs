@@ -52,6 +52,9 @@ public class EnemyFollow : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        PlayerMovement playerScript = playerObject.GetComponent<PlayerMovement>();
+
         if (other.gameObject.CompareTag("Projectile"))
         {
             dying = true;
@@ -60,6 +63,10 @@ public class EnemyFollow : MonoBehaviour
             Destroy(gameObject, 1f);
         }
 
+        if (other.gameObject.CompareTag("Player"))
+        {
+            playerScript.health -= 1;
+        }
     }
 
     void Flip()
@@ -77,15 +84,14 @@ public class EnemyFollow : MonoBehaviour
     void Follow()
     {
         float distanceToPlayer = Vector2.Distance(transform.position, target.position);
-        //Debug.Log("Distance to Player: " + distanceToPlayer);
+
         if (rangedFollow == false)
         {
-            //Debug.Log("Ranged Follow False | Following");
             rb.position = Vector2.MoveTowards(rb.position, target.position, speed * Time.deltaTime);
         }
+
         else if (rangedFollow == true && distanceToPlayer >= stoppingDistance)
         {
-            //Debug.Log("Ranged Follow True | Following");
             rb.position = Vector2.MoveTowards(rb.position, target.position, speed * Time.deltaTime);
         }
     }
