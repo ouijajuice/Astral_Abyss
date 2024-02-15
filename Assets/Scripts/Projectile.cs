@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+
     public GameObject playerExplosion;
     public string hitTag;
     private GameObject killCounterScript;
     private GameObject boss;
-    private void Start()
-    {
-        
-    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Boss"))

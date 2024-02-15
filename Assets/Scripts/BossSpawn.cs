@@ -17,12 +17,17 @@ public class BossSpawn : MonoBehaviour
     private int alive = 0;
     private Animator animator;
     public string winScreen;
+    public AudioSource source;
+    private bool audioPlayed = false;
+    public Color hitColor;
+    private SpriteRenderer spriteRenderer;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         edgeCollider = GetComponent<EdgeCollider2D>();
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         bossHealth = bossMaxHealth;
         edgeCollider.enabled = false;
     }
@@ -45,7 +50,13 @@ public class BossSpawn : MonoBehaviour
             if (alive == 1)
             {
                 Instantiate(bossDeathParticles, transform.position, Quaternion.identity);
+                if (audioPlayed == false)
+                {
+                    source.Play();
+                }
+                audioPlayed = true;
             }
+            
             alive = -1;
             animator.SetBool("Dying", true);
             Invoke("WinScreen", 3);
@@ -68,4 +79,19 @@ public class BossSpawn : MonoBehaviour
         SceneManager.LoadScene(winScreen);
         //Debug.Log("Invoking");
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Projectile"))
+        {
+            spriteRenderer.color = hitColor;
+        }
+        Invoke("ResetColor", .2f);
+    }
+
+    void ResetColor()
+    {
+        spriteRenderer.color = Color.white;
+    }
+
 }

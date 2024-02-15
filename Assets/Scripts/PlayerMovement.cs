@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
-
+    public AudioSource source;
     public Rigidbody2D rb;
     public float moveSpeed;
     public Vector2 PlayerInput;
@@ -31,10 +31,11 @@ public class PlayerMovement : MonoBehaviour
             lastDirectionMoved = PlayerInput.x;
         }
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && firing == false)
         {
             firing = true;
             animator.SetBool("Firing", true);
+            source.Play();
         }
 
         Invoke("FiringFalse", 1f);

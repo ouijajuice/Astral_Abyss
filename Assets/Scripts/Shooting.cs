@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Shooting : MonoBehaviour
 {
-
     public Transform firePoint;
     public GameObject playerProjectilePrefab;
 
@@ -31,5 +30,6 @@ public class Shooting : MonoBehaviour
         GameObject projectile = Instantiate(playerProjectilePrefab, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
         rb.AddForce(firePoint.right * projectileForce, ForceMode2D.Impulse);
+        
     }
 }
